@@ -14,26 +14,30 @@ var T = new Twit(tkazec.auth);
 });*/
 
 var getTweets = function (since, max, next) {
-	T.get("statuses/user_timeline", {
-		since_id: since,
-		max_id: max,
+	var opts = {
 		count: 200,
 		trim_user: true,
 		include_rts: true,
 		include_entities: true
-	}, next);
+	};
+	
+	if (since) { opts.since_id = since; }
+	if (max) { opts.max_id = max; }
+	
+	T.get("statuses/user_timeline", opts, next);
 };
 
 var f = ff(function () {
 	var since;
 	var max;
-	var group = f.group();
 	
-	getTweets(since, max, ff());
+	getTweets(since, max, f());
 }, function (res) {
-	var tweets = Array.prototype.concat.apply(tkazec.tweets, res);
+	tkazec.tweets = Array.prototype.concat.apply(tkazec.tweets, res);
 	
-	fs.writeFile("tkazec.json", tweets, f(tweets.length));
-}).cb(function (err, tweets) {
-	console.log("Wrote", tweets.length, "tweets.", err);
+	fs.writeFile("tkazec.json", JSON.stringify(tkazec, null, "\t"), f(res.length));
+}).success(function (tweets) {
+	console.log("Wrote", tweets, "tweets.");
+}).error(function (err) {
+	console.log(err);
 });
