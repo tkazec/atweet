@@ -1,0 +1,11 @@
+{
+	"name": "atweet",
+	"version": "0.0.0",
+	"dependencies": {
+		"ff": "0.0.15",
+		"twit": "0.1.7"
+	},
+	"engines": {
+		"node": "~0.8.0"
+	}
+}
