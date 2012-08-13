@@ -28,16 +28,42 @@ var getTweets = function (since, max, next) {
 };
 
 var f = ff(function () {
-	var since;
-	var max;
+	var group = [];
 	
-	getTweets(since, max, f());
+	var pull = function (max) {
+		getTweets(tkazec.tweets.length && tkazec.tweets[0].id_str, max, recurse());
+	};
+	
+	var process = function (res) {
+		// If we've already got our initial batch of tweets, the first tweet in
+		// res is going to be a duplicate. Remove it.
+		if (group.length) {
+			res.shift();
+		}
+		
+		// If res is empty, we can be pretty sure we've reached the end.
+		if (!res.length) {
+			return recurse.slotPlain()(group);
+		}
+		
+		// Otherwise, continue on, making sure to support the recursion.
+		recurse.next(pull);
+		recurse.next(process);
+		
+		// And add the tweets to the group.
+		group = group.concat(res);
+		
+		// Finally, recurse, passing along the max_id.
+		recurse.slotPlain()(res[res.length - 1].id_str);
+	};
+	
+	var recurse = ff(pull, process).cb(f());
 }, function (res) {
-	tkazec.tweets = Array.prototype.concat.apply(tkazec.tweets, res);
+	tkazec.tweets = res.concat(tkazec.tweets);
 	
 	fs.writeFile("tkazec.json", JSON.stringify(tkazec, null, "\t"), f(res.length));
 }).success(function (tweets) {
 	console.log("Wrote", tweets, "tweets.");
 }).error(function (err) {
-	console.log(err);
+	console.log("Something bad happened...", err);
 });
