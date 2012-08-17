@@ -5,13 +5,9 @@ var fs = require("fs");
 var ff = require("ff");
 var Twit = require("twit");
 
-var tkazec = require("./tkazec.json");
+var user = require("./gen/tkazec.json");
 
-var T = new Twit(tkazec.auth);
-
-/*T.get("account/totals", function (err, res) {
-	res.updates;
-});*/
+var T = new Twit(user.auth);
 
 var getTweets = function (since, max, next) {
 	var opts = {
@@ -31,7 +27,7 @@ var f = ff(function () {
 	var group = [];
 	
 	var pull = function (max) {
-		getTweets(tkazec.tweets.length && tkazec.tweets[0].id_str, max, recurse());
+		getTweets(user.tweets.length && user.tweets[0].id_str, max, recurse());
 	};
 	
 	var process = function (res) {
@@ -59,9 +55,9 @@ var f = ff(function () {
 	
 	var recurse = ff(pull, process).cb(f());
 }, function (res) {
-	tkazec.tweets = res.concat(tkazec.tweets);
+	user.tweets = res.concat(user.tweets);
 	
-	fs.writeFile("tkazec.json", JSON.stringify(tkazec, null, "\t"), f(res.length));
+	fs.writeFile("gen/tkazec.json", JSON.stringify(user, null, "\t"), f(res.length));
 }).success(function (tweets) {
 	console.log("Wrote", tweets, "tweets.");
 }).error(function (err) {
