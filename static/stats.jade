@@ -1,0 +1,20 @@
+doctype
+html(lang="en")
+	head
+		meta(charset="utf-8")
+		meta(http-equiv="X-UA-Compatible", content="IE=edge,chrome=1")
+		title @#{info.screen_name}'s stats / atweet
+		link(rel="stylesheet", href="bootstrap.css")
+		link(rel="stylesheet", href="stats.css")
+	body
+		div.container
+			h1
+				span a
+				| tweet
+			
+			p.lead @#{info.screen_name} has 2,600 recorded tweets, dating back to June 2012.
+			
+			hr
+			
+			div
+				img(src="http://placehold.it/940x200&text=tweet+timeline+[bar]")

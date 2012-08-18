@@ -1,0 +1,8 @@
+h1 {
+	font-weight: 300;
+}
+
+h1 > span {
+	font-style: italic;
+	font-weight: 400;
+}
