@@ -16,7 +16,10 @@ var f = ff(function () {
 }, function (css) {
 	user.css = css;
 	
-	jade.renderFile(__dirname + "/static/stats.jade", user, f());
+	jade.renderFile(__dirname + "/static/stats.jade", {
+		css: css,
+		info: user.info
+	}, f());
 }, function (html) {
 	fs.writeFile(__dirname + "/gen/stats.html", html, f());
 }).cb(function (err) {
