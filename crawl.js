@@ -12,9 +12,7 @@ var T = new Twit(user.auth);
 var getTweets = function (since, max, next) {
 	var opts = {
 		count: 200,
-		trim_user: true,
-		include_rts: true,
-		include_entities: true
+		trim_user: true
 	};
 	
 	if (since) { opts.since_id = since; }
