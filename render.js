@@ -14,8 +14,6 @@ var f = ff(function () {
 		compress: true
 	}, f());
 }, function (css) {
-	user.css = css;
-	
 	jade.renderFile(__dirname + "/static/stats.jade", {
 		css: css,
 		info: user.info
