@@ -20,6 +20,8 @@ var f = ff(function () {
 	fs.readFile(__dirname + "/static/stats.js", "utf8", f());
 }, function (css, d3, js) {
 	jade.renderFile(__dirname + "/static/stats.jade", {
+		moment: require("moment"),
+		numeral: require("numeral"),
 		css: css,
 		js: d3 + js,
 		info: user.info,

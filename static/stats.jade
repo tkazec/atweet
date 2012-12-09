@@ -11,7 +11,7 @@ html(lang="en")
 				span a
 				| tweet
 			
-			p.lead @#{info.screen_name} has #{data.count} recorded tweets, dating back to #{data.beginning.format("MMMM YYYY")}.
+			p.lead @#{info.screen_name} has #{numeral(data.count.total).format("0,0")} recorded tweets, dating back to #{moment(data.beginning).format("MMMM YYYY")}.
 			
 			hr
 			
@@ -26,7 +26,7 @@ html(lang="en")
 			
 			div.row
 				div.span8
-					p 100 tweets have hashtags (1%)
+					p #{numeral(data.count.hashtags).format("0,0")} tweets have hashtags (1%)
 					img(src="http://placehold.it/620x200&text=hashtag+cloud")
 				div.span4
 					img(src="http://placehold.it/300x200&text=tweet+types")
