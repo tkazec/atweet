@@ -21,20 +21,24 @@ html(lang="en")
 			// hash cloud, along with total count + percentage
 			// top friends
 			
-			div
-				svg#stats-timeline(width="940", height="200")
+			div.row
+				div.span12
+					svg#stats-timeline(width="940", height="110")
 			
 			div.row
-				div.span8
-					p #{numeral(data.count.hashtags).format("0,0")} tweets have hashtags (1%)
-					img(src="http://placehold.it/620x200&text=hashtag+cloud")
-				div.span4
-					img(src="http://placehold.it/300x200&text=tweet+types")
+				div.span3
+					svg#stats-types(width="220", height="220")
+				div.span3
+					img(src="http://placehold.it/220x220")
+				div.span3
+					img(src="http://placehold.it/220x220")
+				div.span3
+					img(src="http://placehold.it/220x220&text=top+friends")
 			
 			div.row
-				div.span8
-					img(src="http://placehold.it/620x200&text=word+cloud")
-				div.span4
-					img(src="http://placehold.it/300x200&text=top+friends")
+				div.span6
+					img(src="http://placehold.it/460x220&text=word+cloud")
+				div.span6
+					img(src="http://placehold.it/460x220&text=hashtag+cloud")
 		
 		script var data = !{JSON.stringify(data)}; !{js}
