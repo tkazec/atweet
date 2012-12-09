@@ -1,5 +1,9 @@
 @import "bootstrap/bootstrap";
 
+@twTweet: #2C7FB8;
+@twRetweet: #7FCDBB;
+@twReply: #EDF8B1;
+
 h1 {
 	font-weight: 300;
 }
@@ -15,4 +19,16 @@ svg {
 
 .row + .row {
 	margin-top: @gridGutterWidth;
+}
+
+.twColor0 {
+	fill: @twTweet;
+}
+
+.twColor1 {
+	fill: @twRetweet;
+}
+
+.twColor2 {
+	fill: @twReply;
 }
